@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.ProducttypeDao">
+  <resultMap id="BaseResultMap" type="generate.Producttype">
+    <id column="producttype_id" jdbcType="INTEGER" property="id" />
+    <result column="producttype_Parentid" jdbcType="INTEGER" property="parentid" />
+    <result column="producttype_typename" jdbcType="VARCHAR" property="typename" />
+    <result column="producttype_flagparent" jdbcType="INTEGER" property="flagparent" />
+    <result column="producttype_createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="producttype_updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    producttype.id as producttype_id, producttype.Parentid as producttype_Parentid, producttype.typename as producttype_typename, 
+    producttype.flagparent as producttype_flagparent, producttype.createTime as producttype_createTime, 
+    producttype.updateTime as producttype_updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from producttype producttype
+    where producttype.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from producttype
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="generate.Producttype" useGeneratedKeys="true">
+    insert into producttype (Parentid, typename, flagparent, 
+      createTime, updateTime)
+    values (#{parentid,jdbcType=INTEGER}, #{typename,jdbcType=VARCHAR}, #{flagparent,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="generate.Producttype" useGeneratedKeys="true">
+    insert into producttype
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="parentid != null">
+        Parentid,
+      </if>
+      <if test="typename != null">
+        typename,
+      </if>
+      <if test="flagparent != null">
+        flagparent,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="typename != null">
+        #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="flagparent != null">
+        #{flagparent,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="generate.Producttype">
+    update producttype
+    <set>
+      <if test="parentid != null">
+        Parentid = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="typename != null">
+        typename = #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="flagparent != null">
+        flagparent = #{flagparent,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generate.Producttype">
+    update producttype
+    set Parentid = #{parentid,jdbcType=INTEGER},
+      typename = #{typename,jdbcType=VARCHAR},
+      flagparent = #{flagparent,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

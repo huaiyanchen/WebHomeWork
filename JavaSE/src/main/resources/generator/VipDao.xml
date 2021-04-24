@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.VipDao">
+  <resultMap id="BaseResultMap" type="generate.Vip">
+    <id column="vip_id" jdbcType="INTEGER" property="id" />
+    <result column="vip_cardnumber" jdbcType="VARCHAR" property="cardnumber" />
+    <result column="vip_vipname" jdbcType="VARCHAR" property="vipname" />
+    <result column="vip_iphone" jdbcType="VARCHAR" property="iphone" />
+    <result column="vip_jifen" jdbcType="INTEGER" property="jifen" />
+    <result column="vip_money" jdbcType="DOUBLE" property="money" />
+    <result column="vip_createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="vip_updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    vip.id as vip_id, vip.cardnumber as vip_cardnumber, vip.vipname as vip_vipname, vip.iphone as vip_iphone, 
+    vip.jifen as vip_jifen, vip.money as vip_money, vip.createTime as vip_createTime, 
+    vip.updateTime as vip_updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from vip vip
+    where vip.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from vip
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="generate.Vip" useGeneratedKeys="true">
+    insert into vip (cardnumber, vipname, iphone, 
+      jifen, money, createTime, 
+      updateTime)
+    values (#{cardnumber,jdbcType=VARCHAR}, #{vipname,jdbcType=VARCHAR}, #{iphone,jdbcType=VARCHAR}, 
+      #{jifen,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="generate.Vip" useGeneratedKeys="true">
+    insert into vip
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cardnumber != null">
+        cardnumber,
+      </if>
+      <if test="vipname != null">
+        vipname,
+      </if>
+      <if test="iphone != null">
+        iphone,
+      </if>
+      <if test="jifen != null">
+        jifen,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cardnumber != null">
+        #{cardnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="vipname != null">
+        #{vipname,jdbcType=VARCHAR},
+      </if>
+      <if test="iphone != null">
+        #{iphone,jdbcType=VARCHAR},
+      </if>
+      <if test="jifen != null">
+        #{jifen,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="generate.Vip">
+    update vip
+    <set>
+      <if test="cardnumber != null">
+        cardnumber = #{cardnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="vipname != null">
+        vipname = #{vipname,jdbcType=VARCHAR},
+      </if>
+      <if test="iphone != null">
+        iphone = #{iphone,jdbcType=VARCHAR},
+      </if>
+      <if test="jifen != null">
+        jifen = #{jifen,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generate.Vip">
+    update vip
+    set cardnumber = #{cardnumber,jdbcType=VARCHAR},
+      vipname = #{vipname,jdbcType=VARCHAR},
+      iphone = #{iphone,jdbcType=VARCHAR},
+      jifen = #{jifen,jdbcType=INTEGER},
+      money = #{money,jdbcType=DOUBLE},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

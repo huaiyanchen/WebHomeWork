@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.OrderdetailsDao">
+  <resultMap id="BaseResultMap" type="generate.Orderdetails">
+    <id column="orderdetails_id" jdbcType="INTEGER" property="id" />
+    <result column="orderdetails_orderid" jdbcType="INTEGER" property="orderid" />
+    <result column="orderdetails_productid" jdbcType="INTEGER" property="productid" />
+    <result column="orderdetails_num" jdbcType="INTEGER" property="num" />
+    <result column="orderdetails_money" jdbcType="FLOAT" property="money" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    orderdetails.id as orderdetails_id, orderdetails.orderid as orderdetails_orderid, 
+    orderdetails.productid as orderdetails_productid, orderdetails.num as orderdetails_num, 
+    orderdetails.money as orderdetails_money
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orderdetails orderdetails
+    where orderdetails.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orderdetails
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="generate.Orderdetails" useGeneratedKeys="true">
+    insert into orderdetails (orderid, productid, num, 
+      money)
+    values (#{orderid,jdbcType=INTEGER}, #{productid,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
+      #{money,jdbcType=FLOAT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="generate.Orderdetails" useGeneratedKeys="true">
+    insert into orderdetails
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        orderid,
+      </if>
+      <if test="productid != null">
+        productid,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="productid != null">
+        #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=FLOAT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="generate.Orderdetails">
+    update orderdetails
+    <set>
+      <if test="orderid != null">
+        orderid = #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="productid != null">
+        productid = #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=FLOAT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generate.Orderdetails">
+    update orderdetails
+    set orderid = #{orderid,jdbcType=INTEGER},
+      productid = #{productid,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      money = #{money,jdbcType=FLOAT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
