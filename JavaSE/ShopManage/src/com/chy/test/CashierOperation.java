@@ -2,7 +2,9 @@ package com.chy.test;
 
 import com.chy.constants.UserConstants;
 import com.chy.service.OrderService;
+import com.chy.service.ProductService;
 import com.chy.service.impl.OrderServiceImpl;
+import com.chy.service.impl.ProductServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +20,7 @@ import java.util.Scanner;
 public class CashierOperation {
     private Scanner scanner = new Scanner(System.in);
     private OrderService orderService = new OrderServiceImpl();
+    private ProductService productService = new ProductServiceImpl();
 
     /**
      * 收银员登陆
@@ -128,6 +131,6 @@ public class CashierOperation {
      * 积分兑换
      */
     public void jifen() {
-
+        productService.jifen();
     }
 }

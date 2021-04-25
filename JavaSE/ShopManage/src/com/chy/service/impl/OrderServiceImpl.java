@@ -338,6 +338,9 @@ public class OrderServiceImpl implements OrderService {
         if (payType == 2) {
             res = "卡内余额";
         }
+        if (payType == 3) {
+            res = "积分兑换";
+        }
         return res;
     }
 

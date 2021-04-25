@@ -36,7 +36,7 @@ public class OrderDaoImpl implements OrderDao {
         //插入orderinfo
         String sql1 = "insert into orderinfo values (null,?,?,?,?,?)";
         //插入orderdetails表
-        String sql2 = "insert into orderdetails values(null,?,?,?,?)";
+        String sql2 = "insert into orderdetails values (null,?,?,?,?)";
         //修改自己的vip信息
         String sql3 = "update vip set jifen =?,money =? ,updateTime = ? where id =?";
         //修改商品信息
@@ -46,7 +46,7 @@ public class OrderDaoImpl implements OrderDao {
         //事务成功的判断条件们  sql1Id   返回的Id
         int sql1Id = 0, p = 0, o = 0, q = 0;
         try {
-            //手动事务提交 好烦
+            //手动事务提交
             con.setAutoCommit(false);
             //插入orderinfo
             sql1Id = JdbcUtil.executeInsetId(con, sql1, orderinfo.getVipid(), orderinfo.getPrice(),
@@ -72,6 +72,7 @@ public class OrderDaoImpl implements OrderDao {
             }
         } catch (SQLException e) {
             try {
+                //事务回滚
                 con.rollback();
             } catch (SQLException sqlException) {
                 sqlException.printStackTrace();
