@@ -96,15 +96,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void showProduct(Map<Integer, Integer> buyCar) {
-        System.out.println("商品Id\t商品名称\t选择数量\t购物车总价");
+        System.out.println("商品Id\t商品名称\t选择数量\t价格");
+        double allM = 0;
         for (Integer key : buyCar.keySet()) {
             //数目
             Integer num = buyCar.get(key);
             Product product = productDao.selectProductById(key);
-            String pname =product.getPname();
-            Double price = product.getPrice()*num;
-            System.out.println(key + "\t" + pname + "\t" + num+ "\t" + price);
+            String pname = product.getPname();
+            Double price = product.getPrice() * num;
+            allM += price;
+            System.out.println(key + "\t" + pname + "\t" + num + "\t" + price);
         }
+        System.out.println("购物车总价:" + allM);
     }
 
     @Override
@@ -144,7 +147,6 @@ public class OrderServiceImpl implements OrderService {
 
             orderDetailsList.add(orderdetails);
         }
-
         orderinfo.setOrderdate(DateUtils.getNow());
         orderinfo.setMoney(allpay);
         System.out.println("您一共需要支付" + allpay + "元");
@@ -160,11 +162,11 @@ public class OrderServiceImpl implements OrderService {
                 //判断 余额
                 if (vip.getMoney() < allpay) {
                     //循环充值 直到金额足够
+                    double allMoneyOfVip = 0;
                     while (true) {
                         System.out.println("您的会员卡余额不足 请充值:");
                         System.out.println("请输入充值的金额");
                         int money = scanner.nextInt();
-                        double allMoneyOfVip = 0;
                         allMoneyOfVip = vip.getMoney() + money + allMoneyOfVip;
                         if (allMoneyOfVip >= allMoneyForVip) {
                             vip.setMoney(allMoneyOfVip);
@@ -200,6 +202,7 @@ public class OrderServiceImpl implements OrderService {
         buyVO.setOrderDetailsList(orderDetailsList);
         buyVO.setOrderinfo(orderinfo);
         buyVO.setProductVOS(productVOS);
+
 
         if (orderDao.buy4TableAlert(buyVO)) {
             System.out.println("购买成功,付款成功");
@@ -275,13 +278,16 @@ public class OrderServiceImpl implements OrderService {
      * @param product
      */
     private void showProduct(Product product) {
-        System.out.println(product.getId() + "\t" +
-                product.getPname() + "\t" + "\t" +
-                product.getPrice() + "\t" +
-                product.getNum() + "\t" + "\t" +
-                product.getDiscount() + "\t" + "\t" +
-                product.getTypeid() + "\t" + "\t" +
-                productStateJug(product.getState()));
+        // 购买展示 时不显示已删除和下架的
+        if (product.getState() == 1) {
+            System.out.println(product.getId() + "\t" +
+                    product.getPname() + "\t" + "\t" +
+                    product.getPrice() + "\t" +
+                    product.getNum() + "\t" + "\t" +
+                    product.getDiscount() + "\t" + "\t" +
+                    product.getTypeid() + "\t" + "\t" +
+                    productStateJug(product.getState()));
+        }
     }
 
     /**
@@ -327,6 +333,7 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 判断支付类型
+     *
      * @param payType
      * @return
      */
@@ -346,6 +353,7 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 商品id转商品名
+     *
      * @param id
      * @return
      */

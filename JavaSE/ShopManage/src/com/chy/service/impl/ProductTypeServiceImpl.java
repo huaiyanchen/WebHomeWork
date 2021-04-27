@@ -71,6 +71,10 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         System.out.println("请输入删除的商品类型的id");
         int id = scanner.nextInt();
         Producttype producttype = productTypeDao.selectById(id);
+        if (producttype.getFlagparent() == 1) {
+            System.out.println("是一级分类商品不能删除");
+            return;
+        }
         if (checkIsHavePro(producttype.getId())) {
             System.out.println("有子类商品不能删除");
             return;

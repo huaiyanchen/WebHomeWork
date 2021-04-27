@@ -36,7 +36,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public int deleteProductById(Integer id) {
-        String sql = "delete from product where id = ?";
+        String sql = "update product set state = 3 where id = ?";
         return JdbcUtil.executeUpdate(sql, id);
     }
 

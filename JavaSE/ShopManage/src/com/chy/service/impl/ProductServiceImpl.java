@@ -198,8 +198,15 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * 积分购买
+     * @param id
+     * @param num
+     * @param remian
+     * @param vip
+     * @param price
+     */
     private void jifenBuy(int id, int num, int remian, Vip vip ,double price) {
-
         // 准备数据
         //用于修改统一修改数据库时的数据传输
         BuyVO buyVO = new BuyVO();
@@ -234,9 +241,7 @@ public class ProductServiceImpl implements ProductService {
         } else {
             System.out.println("oh god please no error!!!");
         }
-
     }
-
 
     /**
      * 显示商品

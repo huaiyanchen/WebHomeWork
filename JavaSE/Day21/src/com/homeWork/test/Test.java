@@ -34,10 +34,8 @@ public class Test {
     private DeptDao deptDao = new DeptDaoImpl();
     private CardRecordDao cardRecordDao = new CardRecordDaoImpl();
     private EmpInfoDao empInfoDao = new EmpInfoDaoImpl();
-
     // menu
     public void menu() {
-
         boolean b = true;
         while (b) {
             System.out.println("欢迎使用XX公司打卡系统");

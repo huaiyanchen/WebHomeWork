@@ -106,7 +106,7 @@ public class VipServiceImpl implements VipService {
                 vip.getCardnumber() +"\t"+
                 vip.getIphone() +"\t"+
                 vip.getJifen() +"\t"+
-                vip.getMoney() +"\t"+
+                vip.getMoney().intValue() +"\t"+
                 DateUtils.dataFormate(vip.getCreatetime()) +"\t"+
                 DateUtils.dataFormate(vip.getUpdatetime()));
     }

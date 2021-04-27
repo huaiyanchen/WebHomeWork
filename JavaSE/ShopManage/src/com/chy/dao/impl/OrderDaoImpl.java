@@ -87,7 +87,7 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public List<Orderdetails> selectOrderDetailByPId(Integer proId) {
         String sql = "select * from orderdetails where productid = ?";
-        return JdbcUtil.getById(sql, Orderdetails.class, proId);
+        return JdbcUtil.getAll(sql, Orderdetails.class, proId);
     }
 
     @Override
