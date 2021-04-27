@@ -103,12 +103,13 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         producttype.setTypename(scanner.next());
         // 是父类
         if (producttype.getFlagparent() == 1) {
-//            List<Producttype> producttypes1 = productTypeDao.selectAllProductType();
-//            for (Producttype producttype1 : producttypes1) {
-//                if (producttype1.getId().equals(producttype.getParentid())) {
-//                    System.out.println("您有儿子了 不能改了 ");
-//                }
-//            }
+            List<Producttype> producttypes1 = productTypeDao.selectAllProductType();
+            for (Producttype producttype1 : producttypes1) {
+                if (producttype1.getParentid().equals(producttype.getId())) {
+                    System.out.println("您有儿子了 不能改了 ");
+                    return;
+                }
+            }
             System.out.println("是否修改为子类 1.不修改 0.修改");
             int i = scanner.nextInt();
             producttype.setFlagparent(i);
@@ -165,10 +166,12 @@ public class ProductTypeServiceImpl implements ProductTypeService {
      * @Description: 显示
      */
     private void showProductType(List<Producttype> producttypes) {
+
         System.out.println("类型编号\t父类id\t类型名称\t是否是父类\t创建时间\t更新时间");
-        producttypes.forEach(c -> System.out.println(c.getId() + "\t" + c.getParentid() + "\t" +
+        producttypes.forEach(c -> System.out.println(c.getId() + "\t" + showParent(c.getParentid()) + "\t" +
                 c.getTypename() + "\t" + c.getFlagparent() + "\t" + DateUtils.dataFormate(c.getCreatetime()) + "\t" +
                 DateUtils.dataFormate(c.getUpdatetime())));
+
     }
 
     /**
@@ -182,4 +185,11 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         return products.size() > 0;
     }
 
+    public String showParent(int pId) {
+        if (pId == 0) {
+            return "一级父类";
+        }
+        Producttype producttype = productTypeDao.selectById(pId);
+        return producttype.getTypename();
+    }
 }

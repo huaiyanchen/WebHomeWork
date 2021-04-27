@@ -1,6 +1,7 @@
 package com.chy.dao;
 
 import com.chy.bean.Orderdetails;
+import com.chy.bean.Orderinfo;
 import com.chy.bean.vo.BuyVO;
 import com.chy.bean.vo.OrderDetailInfo;
 import com.chy.bean.vo.RankProVO;
@@ -60,5 +61,12 @@ public interface OrderDao {
      * @return
      */
     List<RankProVO> findOrderForRankProductid(Integer month ,Integer typeId);
+
+    /**
+     * 根据会员id查询订单表
+     * @param id
+     * @return
+     */
+    List<Orderinfo> selectOrderInfoByVId(Integer id);
 
 }

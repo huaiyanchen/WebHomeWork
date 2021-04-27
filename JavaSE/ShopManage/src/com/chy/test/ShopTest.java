@@ -37,36 +37,43 @@ public class ShopTest {
             switch (choose) {
                 case "1":
                     if (adminOperation.adminLogin()) {
+                        System.out.println("1、商品类型管理");
                         adminOperation.productTypeMenu();
                     }
                     break;
                 case "2":
                     if (adminOperation.adminLogin()) {
+                        System.out.println("2、商品管理");
                         adminOperation.productMenu();
                     }
                     break;
                 case "3":
                     if (adminOperation.adminLogin()) {
+                        System.out.println("3、会员管理");
                         adminOperation.vipMenu();
                     }
                     break;
                 case "4":
                     if (cashierOperation.cashierLogin()) {
+                        System.out.println("4、购买管理");
                         cashierOperation.buyOperation();
                     }
                     break;
                 case "5":
                     if (cashierOperation.cashierLogin()) {
+                        System.out.println("5、订单管理");
                         cashierOperation.orderManage();
                     }
                     break;
                 case "6":
                     if (cashierOperation.cashierLogin()) {
+                        System.out.println("6、排行统计管理");
                         cashierOperation.rank();
                     }
                     break;
                 case "7":
                     if (cashierOperation.cashierLogin()) {
+                        System.out.println("7.积分兑换");
                         cashierOperation.jifen();
                     }
                     break;

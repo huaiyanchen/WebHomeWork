@@ -254,8 +254,8 @@ public class ProductServiceImpl implements ProductService {
                 product.getPrice() + "\t" +
                 product.getNum() + "\t" + "\t" +
                 product.getDiscount() + "\t" + "\t" +
-                product.getTypeid() + "\t" + "\t" +
-                productStateJug(product.getState()));
+                showParent(product.getTypeid()) + "\t" + "\t" +
+                    productStateJug(product.getState()));
     }
 
     /**
@@ -280,5 +280,11 @@ public class ProductServiceImpl implements ProductService {
                 break;
         }
         return res;
+    }
+
+
+    private String showParent(int typeId) {
+        Producttype producttype = productTypeDao.selectById(typeId);
+        return producttype.getTypename();
     }
 }

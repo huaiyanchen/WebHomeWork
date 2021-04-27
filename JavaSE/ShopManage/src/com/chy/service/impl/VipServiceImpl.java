@@ -1,7 +1,10 @@
 package com.chy.service.impl;
 
+import com.chy.bean.Orderinfo;
 import com.chy.bean.Vip;
+import com.chy.dao.OrderDao;
 import com.chy.dao.VipDao;
+import com.chy.dao.impl.OrderDaoImpl;
 import com.chy.dao.impl.VipDaoImpl;
 import com.chy.service.VipService;
 import com.chy.utils.DateUtils;
@@ -21,6 +24,7 @@ public class VipServiceImpl implements VipService {
 
     private Scanner scanner = new Scanner(System.in);
     private VipDao vipDao = new VipDaoImpl();
+    private OrderDao orderDao = new OrderDaoImpl();
 
     @Override
     public void addVip() {
@@ -44,7 +48,13 @@ public class VipServiceImpl implements VipService {
     @Override
     public void deleteVip() {
         System.out.println("请输入要删除会员的id");
-        if (vipDao.deleteVipById(scanner.nextInt()) > 0) {
+        int vid = scanner.nextInt();
+        List<Orderinfo> orderinfos = orderDao.selectOrderInfoByVId(vid);
+        if (orderinfos.size() > 0) {
+            System.out.println("会员购买过了,不能删除 ");
+            return;
+        }
+        if (vipDao.deleteVipById(vid) > 0) {
             System.out.println("删除会员成功");
         } else {
             System.out.println("删除失败");
@@ -56,6 +66,7 @@ public class VipServiceImpl implements VipService {
         System.out.println("请输入要修改的编号");
         Vip vip = vipDao.selectVipById(scanner.nextInt());
         System.out.println("编号\t会员卡号\t手机号码\t\t积分\t余额\t\t开通会员时间\t\t\t修改时间");
+        // todo
         showVip(vip);
         System.out.println("请输入修改后的会员姓名");
         vip.setVipname(scanner.next());

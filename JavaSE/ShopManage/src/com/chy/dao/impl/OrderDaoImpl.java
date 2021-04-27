@@ -160,4 +160,10 @@ public class OrderDaoImpl implements OrderDao {
         return JdbcUtil.getAll(sql, RankProVO.class, month, typeId);
     }
 
+    @Override
+    public List<Orderinfo> selectOrderInfoByVId(Integer id) {
+        String sql = "select * from orderinfo where vipid = ?";
+        return JdbcUtil.getAll(sql, Orderinfo.class, id);
+    }
+
 }
